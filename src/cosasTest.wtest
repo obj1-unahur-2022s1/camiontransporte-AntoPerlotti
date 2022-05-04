@@ -1,2 +1,57 @@
 import camion.*
 import cosas.*
+
+describe "Test ladrillos"{
+	test "Test peso y peligrosidad para 100 ladrillos"{
+		paqueteLadrillos.cantidadDeLadrillos(100)
+		assert.equals(2, paqueteLadrillos.nivelPeligrosidad())
+		assert.equals(200, paqueteLadrillos.peso())
+	}
+	
+	test "Test peso y peligrosidad para 2500 ladrillos"{
+		paqueteLadrillos.cantidadDeLadrillos(2500)
+		assert.equals(2, paqueteLadrillos.nivelPeligrosidad())
+		assert.equals(5000, paqueteLadrillos.peso())
+}
+
+
+describe "Test bateria antiaerea"{
+	test "Test peso y peligrosidad con misiles"{
+		assert.equals(300, bateriaAntiaerea.peso())
+		assert.equals(100, bateriaAntiaerea.nivelPeligrosidad())
+		}
+	
+	test "Test peso y peligrosidad sin misiles"{
+		bateriaAntiaerea.cambiarEstadoDeCarga(false)
+		assert.equals(200, bateriaAntiaerea.peso())
+		assert.equals(0, bateriaAntiaerea.nivelPeligrosidad())
+		}
+}
+
+describe "Test embalaje de seguridad"{
+	test "Test envolviendo a residuos radioactivos"{
+		residuosRadioactivos.peso(30)
+		embalajeSeguridad.envuelveA(residuosRadioactivos)
+		assert.equals(30, embalajeSeguridad.peso())
+		assert.equals(100, embalajeSeguridad.nivelPeligrosidad())
+	}
+	
+	test "Test envolviendo a paquete de ladrillos"{
+		paqueteLadrillos.cantidadDeLadrillos(1500)
+		embalajeSeguridad.envuelveA(paqueteLadrillos)
+		assert.equals(3000, embalajeSeguridad.peso())
+		assert.equals(1, embalajeSeguridad.nivelPeligrosidad())
+	}
+}
+
+describe "Test contenedor"{
+	test "Test del contenedor con paquete de ladrillos, arena y bumblebee"{
+		contenedor.agregarCosa(paqueteLadrillos)
+		contenedor.agregarCosa(arena)
+		contenedor.agregarCosa(bumblebee)
+		paqueteLadrillos.cantidadDeLadrillos(1000)
+		arena.peso(700)
+		assert.equals(3600,contenedor.peso())
+		assert.equals(15, contenedor.nivelPeligrosidad())
+	}
+}
