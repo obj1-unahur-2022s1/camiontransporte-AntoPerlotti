@@ -1,5 +1,5 @@
 
-test "testX" {
+test "nombre" {
 
 	assert.that(true)
 
