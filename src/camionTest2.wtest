@@ -1,0 +1,54 @@
+import cosas2.*
+import camion2.*
+
+import camion2.*
+import cosas2.*
+
+describe "Test de camion"{
+	test "Camion cargado con bumblebee, arena de 150 kg, bateria antiaerea con misiles y embalaje de seguridad(relleno de paquete de 90 ladrillos)"{
+		camion.cargar(bumblebee)
+		camion.cargar(arena)
+		camion.cargar(bateriaAntiaerea)
+		camion.cargar(embalajeSeguridad)
+		arena.peso(150)
+		embalajeSeguridad.envuelveA(paqueteLadrillos)
+		paqueteLadrillos.cantidadDeLadrillos(90)
+		//assert.equals([800,170, 300, 180], camion.listadoDePesos())
+		assert.that(camion.todoPesoPar())
+		assert.that(camion.hayAlgunoQuePesa(180))
+		assert.equals(bateriaAntiaerea, camion.elDeNivel(100))
+		//assert.equals(2450, camion.pesoTotal())
+		assert.notThat(camion.excedidoDePeso())
+		assert.equals([bateriaAntiaerea], camion.objetosQueSuperanPeligrosidad(80))
+		assert.equals([bumblebee, bateriaAntiaerea], camion.objetosMasPeligrososQue(knightRider))
+		assert.that(camion.puedeCircularEnRuta(200))
+		assert.that(camion.tieneAlgoQuePesaEntre(171, 301))
+		assert.equals(bumblebee, camion.cosaMasPesada())
+		assert.equals(7, camion.totalBultos())
+	}
+	
+	test "Camion cargado con arena de 150 kg, bateria antiaerea con misiles y contenedor con  residuos radioactivos y paquete de 106 ladrillos"{
+		camion.cargar(arena)
+		camion.cargar(bateriaAntiaerea)
+		camion.cargar(contenedor)
+		arena.peso(150)
+		contenedor.agregarCosa(residuosRadioactivos)
+		contenedor.agregarCosa(paqueteLadrillos)
+		paqueteLadrillos.cantidadDeLadrillos(106)
+		assert.equals(7, camion.totalBultos())
+	}
+	
+	test "Camion cargado con arena de 150 kg, bateria antiaerea sin misiles y contenedor con  residuos radioactivos y paquete de 290 ladrillos"{
+		camion.cargar(arena)
+		arena.peso(150)
+		bateriaAntiaerea.cambiarEstadoDeCarga(false)
+		camion.cargar(bateriaAntiaerea)
+		contenedor.agregarCosa(residuosRadioactivos)
+		contenedor.agregarCosa(paqueteLadrillos)
+		paqueteLadrillos.cantidadDeLadrillos(290)
+		camion.cargar(contenedor)
+		assert.equals(8, camion.totalBultos())
+	
+	}
+	
+}
