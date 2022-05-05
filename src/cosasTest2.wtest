@@ -1,6 +1,66 @@
+import camion2.*
+import cosas2.*
 
-test "nombre" {
+describe "Test ladrillos"{
+	test "Test peso, peligrosidad y representacion de bulto para 100 ladrillos"{
+		paqueteLadrillos.cantidadDeLadrillos(100)
+		assert.equals(2, paqueteLadrillos.nivelPeligrosidad())
+		assert.equals(200, paqueteLadrillos.peso())
+		assert.equals(1, paqueteLadrillos.representacionDeBulto())
+		}
 
-	assert.that(true)
-
+	
+	test "Test peso, peligrosidad y representacion de bulto para 2500 ladrillos"{
+		paqueteLadrillos.cantidadDeLadrillos(2500)
+		assert.equals(2, paqueteLadrillos.nivelPeligrosidad())
+		assert.equals(5000, paqueteLadrillos.peso())
+		assert.equals(3, paqueteLadrillos.representacionDeBulto())
+		}
 }
+
+
+describe "Test bateria antiaerea"{
+	test "Test peso, peligrosidad y representacion de bulto con misiles"{
+		assert.equals(300, bateriaAntiaerea.peso())
+		assert.equals(100, bateriaAntiaerea.nivelPeligrosidad())
+		assert.equals(2, bateriaAntiaerea.representacionDeBulto())
+		}
+	
+	test "Test peso, peligrosidad y representación de bulto sin misiles"{
+		bateriaAntiaerea.cambiarEstadoDeCarga(false)
+		assert.equals(200, bateriaAntiaerea.peso())
+		assert.equals(0, bateriaAntiaerea.nivelPeligrosidad())
+		assert.equals(1, bateriaAntiaerea.representacionDeBulto())
+		}
+}
+
+describe "Test embalaje de seguridad"{
+	test "Test envolviendo a residuos radioactivos"{
+		residuosRadioactivos.peso(30)
+		embalajeSeguridad.envuelveA(residuosRadioactivos)
+		assert.equals(30, embalajeSeguridad.peso())
+		assert.equals(100, embalajeSeguridad.nivelPeligrosidad())
+		assert.equals(2, embalajeSeguridad.representacionDeBulto())
+	}
+	
+	test "Test envolviendo a paquete de ladrillos"{
+		paqueteLadrillos.cantidadDeLadrillos(1500)
+		embalajeSeguridad.envuelveA(paqueteLadrillos)
+		assert.equals(3000, embalajeSeguridad.peso())
+		assert.equals(1, embalajeSeguridad.nivelPeligrosidad())
+		assert.equals(2, embalajeSeguridad.representacionDeBulto())
+	}
+}
+
+describe "Test contenedor"{
+	test "Test del contenedor con paquete de ladrillos, arena y bumblebee"{
+		contenedor.agregarCosa(paqueteLadrillos)
+		contenedor.agregarCosa(arena)
+		contenedor.agregarCosa(bumblebee)
+		paqueteLadrillos.cantidadDeLadrillos(1000)
+		arena.peso(700)
+		assert.equals(3600,contenedor.peso())
+		assert.equals(15, contenedor.nivelPeligrosidad())
+		assert.equals(7, contenedor.representacionDeBulto())
+		}
+	}
